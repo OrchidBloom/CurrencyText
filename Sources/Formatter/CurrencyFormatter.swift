@@ -292,9 +292,10 @@ extension CurrencyFormatter: CurrencyAdjusting {
     /// - Returns: The currency formatted received String with its decimal separator adjusted
     public func formattedStringWithAdjustedDecimalSeparator(from string: String) -> String? {
         let adjustedString = numeralStringWithAdjustedDecimalSeparator(from: string)
-        guard let value = double(from: adjustedString) else { return nil }
-
-        return self.numberFormatter.string(from: value)
+        guard let value = double(from: adjustedString)else { return nil }
+        let allowValue = valueAdjustedToFitAllowedValues(from: value)
+        
+        return self.numberFormatter.string(from: allowValue)
     }
 
     /// Receives a currency formatted String, and returns it to fit the formatter's min and max values, when needed.
